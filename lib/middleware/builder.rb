@@ -17,6 +17,7 @@ module Middleware
   #     app.call(7)
   #
   class Builder
+
     # Initializes the builder. An optional block can be passed which
     # will either yield the builder or be evaluated in the context of the instance.
     #
@@ -40,6 +41,7 @@ module Middleware
     def initialize(opts = nil, &block)
       opts ||= {}
       @runner_class = opts[:runner_class] || Runner
+      @middleware_name = opts[:name] || 'Middleware'
 
       if block_given?
         if block.arity == 1
@@ -48,6 +50,11 @@ module Middleware
           instance_eval(&block)
         end
       end
+    end
+
+    # Returns the name of the current middleware
+    def name
+      @middleware_name
     end
 
     # Returns a mergeable version of the builder. If `use` is called with
@@ -130,11 +137,17 @@ module Middleware
     end
 
     def inspect
-      '[' + stack.reduce([]) do |carry, middleware|
+      name+'[' + stack.reduce([]) do |carry, middleware|
         name = middleware[0].is_a?(Proc) ? 'Proc' : middleware[0].name
 
         carry << "#{name}(#{middleware[1].join(', ')})"
       end.join(', ') + ']'
+    end
+
+    def inject_logger logger
+      insert_before_each Middleware::Logger, logger, name
+
+      self
     end
 
     protected
