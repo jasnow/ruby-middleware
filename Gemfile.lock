@@ -37,6 +37,7 @@ DEPENDENCIES
   rspec-core
   rspec-expectations
   rspec-mocks
+  simplecov
 
 BUNDLED WITH
    1.13.6
