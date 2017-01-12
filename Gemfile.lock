@@ -10,7 +10,7 @@ GEM
       simplecov
     diff-lcs (1.2.5)
     docile (1.1.5)
-    json (2.0.2)
+    json (2.0.3)
     rake (12.0.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
