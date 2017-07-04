@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ibsciss-middleware (0.4.0)
+    ibsciss-middleware (0.4.2)
 
 GEM
   remote: https://rubygems.org/
